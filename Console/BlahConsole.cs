@@ -29,7 +29,11 @@ public class BlahConsole : MonoBehaviour
 	[SerializeField]
 	private BlahConsoleTabLogs _tabLogs;
 	[SerializeField]
+	private GameObject _windowGO;
+	[SerializeField]
 	private Button _openButton;
+	[SerializeField]
+	private BlahConsoleHotKeysHandler _hotKeysHandler;
 	
 	//-----------------------------------------------------------
 	//-----------------------------------------------------------
@@ -43,7 +47,7 @@ public class BlahConsole : MonoBehaviour
 
 	public void Init()
 	{
-		_tabsHolder.Init(_actionButtonSize);
+		_tabsHolder.Init(_hotKeysHandler, _actionButtonSize);
 		
 		_tabLogs.Init(
 			_logsFontSize,
@@ -60,7 +64,7 @@ public class BlahConsole : MonoBehaviour
 		_openButton.onClick.RemoveAllListeners();
 		_openButton.onClick.AddListener(() =>
 		{
-			_tabsHolder.gameObject.SetActive(!_tabsHolder.gameObject.activeSelf);
+			_windowGO.SetActive(!_windowGO.activeSelf);
 		});
 		gameObject.SetActive(true);
 		

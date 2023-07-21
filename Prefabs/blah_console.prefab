@@ -292,6 +292,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8622317460887904057}
   - component: {fileID: 8622317460887904056}
+  - component: {fileID: 6360498599673325599}
   - component: {fileID: 8622317460887904058}
   - component: {fileID: 8622317460887904059}
   - component: {fileID: 8622317460887904060}
@@ -344,7 +345,21 @@ MonoBehaviour:
   _actionButtonSize: {x: 200, y: 100}
   _tabsHolder: {fileID: 8622317461897310042}
   _tabLogs: {fileID: 8622317461801158662}
+  _windowGO: {fileID: 8622317461472179450}
   _openButton: {fileID: 8622317460570713718}
+  _hotKeysHandler: {fileID: 6360498599673325599}
+--- !u!114 &6360498599673325599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8622317460887904061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 646a1ff34b734dd6ae8376c8489b9fec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!223 &8622317460887904058
 Canvas:
   m_ObjectHideFlags: 0

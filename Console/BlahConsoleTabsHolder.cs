@@ -18,12 +18,14 @@ public class BlahConsoleTabsHolder : MonoBehaviour
 
 	//-----------------------------------------------------------
 	//-----------------------------------------------------------
-	private Vector2 _actionButtonSize;
+	private BlahConsoleHotKeysHandler _hotKeysHandler;
+	private Vector2                   _actionButtonSize;
 	
 	private List<GameObject> _tabs = new();
 
-	public void Init(Vector2 actionButtonSize)
+	public void Init(BlahConsoleHotKeysHandler hotKeysHandler, Vector2 actionButtonSize)
 	{
+		_hotKeysHandler   = hotKeysHandler;
 		_actionButtonSize = actionButtonSize;
 	}
 	
@@ -36,7 +38,7 @@ public class BlahConsoleTabsHolder : MonoBehaviour
 		AddTab(tabName, tabGO);
 
 		var tab = tabGO.GetComponent<BlahConsoleTab>();
-		tab.Init(_actionButtonSize);
+		tab.Init(_hotKeysHandler, _actionButtonSize);
 
 		return tab;
 	}
