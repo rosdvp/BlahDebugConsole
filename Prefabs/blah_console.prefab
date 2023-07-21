@@ -343,9 +343,10 @@ MonoBehaviour:
   _colorWarning: {r: 1, g: 1, b: 0.3, a: 1}
   _colorError: {r: 1, g: 0.3, b: 0.3, a: 1}
   _actionButtonSize: {x: 200, y: 100}
+  _windowColor: {r: 0, g: 0, b: 0, a: 0.8}
   _tabsHolder: {fileID: 8622317461897310042}
   _tabLogs: {fileID: 8622317461801158662}
-  _windowGO: {fileID: 8622317461472179450}
+  _windowImage: {fileID: 8622317461472179448}
   _openButton: {fileID: 8622317460570713718}
   _hotKeysHandler: {fileID: 6360498599673325599}
 --- !u!114 &6360498599673325599

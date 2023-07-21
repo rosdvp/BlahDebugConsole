@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using BlahDebugConsole.Logger;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace BlahDebugConsole.Console
@@ -23,13 +24,17 @@ public class BlahConsole : MonoBehaviour
 	[SerializeField]
 	private Vector2 _actionButtonSize = new(200, 100);
 
+	[Header("Others")]
+	[SerializeField]
+	private Color _windowColor = new(0, 0, 0, 0.8f);
+
 	[Header("Components")]
 	[SerializeField]
 	private BlahConsoleTabsHolder _tabsHolder;
 	[SerializeField]
 	private BlahConsoleTabLogs _tabLogs;
 	[SerializeField]
-	private GameObject _windowGO;
+	private Image _windowImage;
 	[SerializeField]
 	private Button _openButton;
 	[SerializeField]
@@ -64,8 +69,11 @@ public class BlahConsole : MonoBehaviour
 		_openButton.onClick.RemoveAllListeners();
 		_openButton.onClick.AddListener(() =>
 		{
-			_windowGO.SetActive(!_windowGO.activeSelf);
+			_windowImage.gameObject.SetActive(!_windowImage.gameObject.activeSelf);
 		});
+
+		_windowImage.color = _windowColor;
+		
 		gameObject.SetActive(true);
 		
 		_isInited = true;
