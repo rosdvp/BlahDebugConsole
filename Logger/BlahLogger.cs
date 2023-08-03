@@ -20,6 +20,8 @@ public static class BlahLogger
 
 	public static void Init(BlahLoggerConfig config)
 	{
+		EvLog = null;
+		
 		_mainThread               = Thread.CurrentThread;
 		_isDelayedLogsTaskRunning = false;
 		_delayedLogs              = new Queue<LogItem>();
@@ -30,8 +32,6 @@ public static class BlahLogger
 
 		_unityConsoleLink = new BlahLoggerUnityConsoleLink();
 		_fileLink         = config.IsWriteIntoFile ? new BlahLoggerFileLink(config.WriteIntoFileInterval) : null;
-
-		EvLog = null;
 	}
 	
 	//-----------------------------------------------------------
