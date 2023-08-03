@@ -30,6 +30,8 @@ public static class BlahLogger
 
 		_unityConsoleLink = new BlahLoggerUnityConsoleLink();
 		_fileLink         = config.IsWriteIntoFile ? new BlahLoggerFileLink(config.WriteIntoFileInterval) : null;
+
+		EvLog = null;
 	}
 	
 	//-----------------------------------------------------------
