@@ -15,23 +15,35 @@ public static class BlahLogger
 
 	private static Dictionary<Enum, string> _tagToStr;
 
-	private static BlahLoggerUnityConsoleLink _unityConsoleLink;
-	private static BlahLoggerFileLink         _fileLink;
+	private static BlahLoggerLinkUnityConsole _linkUnityConsole;
+	private static BlahLoggerLinkFile         _linkFile;
+	private static BlahLoggerLinkDelayable    _linkDelayable;
 
 	public static void Init(BlahLoggerConfig config)
 	{
 		EvLog = null;
-		
+
 		_mainThread               = Thread.CurrentThread;
 		_isDelayedLogsTaskRunning = false;
 		_delayedLogs              = new Queue<LogItem>();
-		
+
 		_minimalLogType = config.MinimalLogType;
 
 		_tagToStr = new Dictionary<Enum, string>();
 
-		_unityConsoleLink = new BlahLoggerUnityConsoleLink();
-		_fileLink         = config.IsWriteIntoFile ? new BlahLoggerFileLink(config.WriteIntoFileInterval) : null;
+		_linkUnityConsole?.Release();
+		_linkUnityConsole = new BlahLoggerLinkUnityConsole();
+
+		_linkFile?.Release();
+		_linkFile = config.IsWriteIntoFile ? new BlahLoggerLinkFile(config.WriteIntoFileInterval) : null;
+		
+		_linkDelayable?.Release();
+		_linkDelayable = null;
+	}
+
+	public static void AttachLinkDelayable(BlahLoggerLinkDelayable link)
+	{
+		_linkDelayable = link;
 	}
 	
 	//-----------------------------------------------------------
@@ -101,8 +113,8 @@ public static class BlahLogger
 
 	//-----------------------------------------------------------
 	//-----------------------------------------------------------
-	public static void SaveToFile() => _fileLink?.Save();
+	public static void SaveToFile() => _linkFile?.Save();
 
-	public static string GetFilePath() => _fileLink?.GetFilePath();
+	public static string GetFilePath() => _linkFile?.GetFilePath();
 }
 }

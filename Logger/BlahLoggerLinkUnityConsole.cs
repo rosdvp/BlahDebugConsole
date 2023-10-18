@@ -3,14 +3,14 @@ using UnityEngine;
 
 namespace BlahDebugConsole.Logger
 {
-internal class BlahLoggerUnityConsoleLink : IDisposable
+internal class BlahLoggerLinkUnityConsole
 {
-	public BlahLoggerUnityConsoleLink()
+	public BlahLoggerLinkUnityConsole()
 	{
 		BlahLogger.EvLog += PrintLog;
 	}
 	
-	public void Dispose()
+	public void Release()
 	{
 		BlahLogger.EvLog -= PrintLog;
 	}

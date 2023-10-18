@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Text;
 using System.Threading;
 using Cysharp.Threading.Tasks;
@@ -7,7 +6,7 @@ using UnityEngine;
 
 namespace BlahDebugConsole.Logger
 {
-internal class BlahLoggerFileLink : IDisposable
+internal class BlahLoggerLinkFile
 {
 	private const string FILE_NAME = "logs.txt";
 
@@ -17,7 +16,7 @@ internal class BlahLoggerFileLink : IDisposable
 
 	private readonly CancellationTokenSource _intervalSaveCTS;
 
-	public BlahLoggerFileLink(float saveInterval)
+	public BlahLoggerLinkFile(float saveInterval)
 	{
 		_filePath = Path.Combine(Application.persistentDataPath, FILE_NAME);
 
@@ -33,7 +32,7 @@ internal class BlahLoggerFileLink : IDisposable
 		}
 	}
 	
-	public void Dispose()
+	public void Release()
 	{
 		BlahLogger.EvLog -= AddToBuilder;
 		
