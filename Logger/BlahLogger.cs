@@ -40,15 +40,10 @@ public static class BlahLogger
 		_linkDelayable?.Release();
 		_linkDelayable = null;
 	}
-
-	public static void AttachLinkDelayable(BlahLoggerLinkDelayable link)
-	{
-		_linkDelayable = link;
-	}
 	
 	//-----------------------------------------------------------
 	//-----------------------------------------------------------
-	public static event Action<LogItem> EvLog;
+	internal static event Action<LogItem> EvLog;
 
 	public static void Verb<T>(T tag, string msg) where T : Enum
 	{
@@ -116,5 +111,19 @@ public static class BlahLogger
 	public static void SaveToFile() => _linkFile?.Save();
 
 	public static string GetFilePath() => _linkFile?.GetFilePath();
+
+	//-----------------------------------------------------------
+	//-----------------------------------------------------------
+	public static void SetCustomListener(System.Action<LogItem> cb)
+	{
+		if (_linkDelayable != null)
+			throw new Exception("custom listener is already set");
+		_linkDelayable = new BlahLoggerLinkDelayable(cb);
+	}
+	
+	public static void SetCustomListenerDelay(bool isDelaying)
+	{
+		_linkDelayable.SetDelaying(isDelaying);
+	}
 }
 }

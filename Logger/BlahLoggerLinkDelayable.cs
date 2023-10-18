@@ -24,10 +24,10 @@ public class BlahLoggerLinkDelayable
 	//-----------------------------------------------------------
 	private bool _isDelaying;
 
-	public void SetDelaying(bool isOn)
+	public void SetDelaying(bool isDelaying)
 	{
-		_isDelaying = isOn;
-		if (!isOn)
+		_isDelaying = isDelaying;
+		if (!isDelaying)
 		{
 			if (_delayedLogs.Count > 0)
 			{
