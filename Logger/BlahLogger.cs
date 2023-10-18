@@ -17,7 +17,7 @@ public static class BlahLogger
 
 	private static BlahLoggerLinkUnityConsole _linkUnityConsole;
 	private static BlahLoggerLinkFile         _linkFile;
-	private static BlahLoggerLinkDelayable    _linkDelayable;
+	private static BlahLoggerLinkCustom       _linkCustom;
 
 	public static void Init(BlahLoggerConfig config)
 	{
@@ -37,8 +37,8 @@ public static class BlahLogger
 		_linkFile?.Release();
 		_linkFile = config.IsWriteIntoFile ? new BlahLoggerLinkFile(config.WriteIntoFileInterval) : null;
 		
-		_linkDelayable?.Release();
-		_linkDelayable = config.UseCustomListener ? new BlahLoggerLinkDelayable() : null;
+		_linkCustom?.Release();
+		_linkCustom = config.UseCustomListener ? new BlahLoggerLinkCustom() : null;
 	}
 	
 	//-----------------------------------------------------------
@@ -116,12 +116,7 @@ public static class BlahLogger
 	//-----------------------------------------------------------
 	public static void SetCustomListener(System.Action<LogItem> cb)
 	{
-		_linkDelayable.SetListener(cb);
-	}
-	
-	public static void SetCustomListenerDelay(bool isDelaying)
-	{
-		_linkDelayable.SetDelaying(isDelaying);
+		_linkCustom.SetListener(cb);
 	}
 }
 }
