@@ -3,18 +3,15 @@ using System.Collections.Generic;
 
 namespace BlahDebugConsole.Logger
 {
-public class BlahLoggerLinkDelayable
+internal class BlahLoggerLinkDelayable
 {
-	private readonly Action<LogItem> _cbLog;
 	private readonly List<LogItem>  _delayedLogs = new();
-	
-	public BlahLoggerLinkDelayable(Action<LogItem> cbLog)
-	{
-		_cbLog = cbLog;
 
+	public BlahLoggerLinkDelayable()
+	{
 		BlahLogger.EvLog += AddLog;
 	}
-	
+
 	public void Release()
 	{
 		BlahLogger.EvLog -= AddLog;
@@ -22,8 +19,14 @@ public class BlahLoggerLinkDelayable
 
 	//-----------------------------------------------------------
 	//-----------------------------------------------------------
-	private bool _isDelaying;
+	private Action<LogItem> _cb;
+	private bool            _isDelaying;
 
+	public void SetListener(Action<LogItem> cb)
+	{
+		_cb = cb;
+	}
+	
 	public void SetDelaying(bool isDelaying)
 	{
 		_isDelaying = isDelaying;
@@ -32,7 +35,7 @@ public class BlahLoggerLinkDelayable
 			if (_delayedLogs.Count > 0)
 			{
 				for (var i = 0; i < _delayedLogs.Count; i++)
-					_cbLog.Invoke(_delayedLogs[i]);
+					_cb.Invoke(_delayedLogs[i]);
 				_delayedLogs.Clear();
 			}
 		}
@@ -44,7 +47,7 @@ public class BlahLoggerLinkDelayable
 		if (_isDelaying)
 			_delayedLogs.Add(log);
 		else
-			_cbLog.Invoke(log);
+			_cb.Invoke(log);
 	}
 }
 }

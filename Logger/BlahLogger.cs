@@ -38,7 +38,7 @@ public static class BlahLogger
 		_linkFile = config.IsWriteIntoFile ? new BlahLoggerLinkFile(config.WriteIntoFileInterval) : null;
 		
 		_linkDelayable?.Release();
-		_linkDelayable = null;
+		_linkDelayable = config.UseCustomListener ? new BlahLoggerLinkDelayable() : null;
 	}
 	
 	//-----------------------------------------------------------
@@ -116,9 +116,7 @@ public static class BlahLogger
 	//-----------------------------------------------------------
 	public static void SetCustomListener(System.Action<LogItem> cb)
 	{
-		if (_linkDelayable != null)
-			throw new Exception("custom listener is already set");
-		_linkDelayable = new BlahLoggerLinkDelayable(cb);
+		_linkDelayable.SetListener(cb);
 	}
 	
 	public static void SetCustomListenerDelay(bool isDelaying)
