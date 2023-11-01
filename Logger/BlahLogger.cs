@@ -32,7 +32,7 @@ public static class BlahLogger
 		_tagToStr = new Dictionary<Enum, string>();
 
 		_linkUnityConsole?.Release();
-		_linkUnityConsole = new BlahLoggerLinkUnityConsole();
+		_linkUnityConsole = new BlahLoggerLinkUnityConsole(config.UseUnityConsoleLevels);
 
 		_linkFile?.Release();
 		_linkFile = config.IsWriteIntoFile ? new BlahLoggerLinkFile(config.WriteIntoFileInterval) : null;

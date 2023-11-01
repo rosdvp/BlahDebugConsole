@@ -6,5 +6,6 @@ public class BlahLoggerConfig
 	public bool     IsWriteIntoFile;
 	public float    WriteIntoFileInterval;
 	public bool     UseCustomListener;
+	public bool     UseUnityConsoleLevels;
 }
 }
