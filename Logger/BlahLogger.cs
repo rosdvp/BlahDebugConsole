@@ -17,7 +17,7 @@ public static class BlahLogger
 
 	private static BlahLoggerLinkUnityConsole _linkUnityConsole;
 	private static BlahLoggerLinkFile         _linkFile;
-	private static BlahLoggerLinkCustom       _linkCustom;
+	private static BlahLoggerLinkCustom[]     _linksCustom;
 
 	public static void Init(BlahLoggerConfig config)
 	{
@@ -37,8 +37,19 @@ public static class BlahLogger
 		_linkFile?.Release();
 		_linkFile = config.IsWriteIntoFile ? new BlahLoggerLinkFile(config.WriteIntoFileInterval) : null;
 		
-		_linkCustom?.Release();
-		_linkCustom = config.UseCustomListener ? new BlahLoggerLinkCustom() : null;
+		if (_linksCustom != null)
+			foreach (var link in _linksCustom)
+				link?.Release();
+		if (config.CustomListenersCount == 0)
+		{
+			_linksCustom = null;
+		}
+		else
+		{
+			_linksCustom = new BlahLoggerLinkCustom[config.CustomListenersCount];
+			for (var i = 0; i < _linksCustom.Length; i++)
+				_linksCustom[i] = new BlahLoggerLinkCustom();
+		}
 	}
 	
 	//-----------------------------------------------------------
@@ -114,9 +125,9 @@ public static class BlahLogger
 
 	//-----------------------------------------------------------
 	//-----------------------------------------------------------
-	public static void SetCustomListener(System.Action<LogItem> cb)
+	public static void SetCustomListener(int idx, System.Action<LogItem> cb)
 	{
-		_linkCustom.SetListener(cb);
+		_linksCustom[idx].SetListener(cb);
 	}
 }
 }
