@@ -1,5 +1,8 @@
-﻿namespace BlahDebugConsole.Logger
+﻿using System;
+
+namespace BlahDebugConsole.Logger
 {
+[Serializable]
 public class BlahLoggerConfig
 {
 	public ELogType MinimalLogType;
